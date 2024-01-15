@@ -49,6 +49,7 @@ const SingleProductPage = () => {
     company,
     images,
   } = product;
+  console.log(stars);
   return (
     <Wrapper>
       <PageHero title={name} product />
@@ -60,7 +61,7 @@ const SingleProductPage = () => {
           <ProductImages images={ images} />
           <section className="content">
             <h2>{name}</h2>
-            <Stars />
+            <Stars stars={stars} reviews={reviews} />
             <h5>{price}</h5>
             <p className="desc">{description}</p>
             <p className="info">
@@ -68,15 +69,15 @@ const SingleProductPage = () => {
               {stock > 0 ? "in stock" : "out of stock"}
             </p>
             <p className="info">
-              <span> sku:</span>
+              <span> sku :</span>
               {sku}
-            </p>{" "}
+            </p>
             <p className="info">
               <span>brand :</span>
               {company}
             </p>
             <hr />
-            {stock >0 && <AddToCart/>}
+            {stock > 0 && <AddToCart product={product} />}
           </section>
         </div>
       </div>
