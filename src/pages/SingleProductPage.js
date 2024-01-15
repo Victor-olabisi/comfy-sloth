@@ -49,25 +49,39 @@ const SingleProductPage = () => {
     company,
     images,
   } = product;
-  return <Wrapper>
-    <PageHero title={name} product />
-    <div className="section section-center page">
-      <Link to={'/products'} className="btn">back to products</Link>
-      <div className="products-center">
-        <ProductImages />
-        <section className="content">
-          <h2>{name}</h2>
-          <Stars />
-          <h5>{price}</h5>
-          <p className="desc">{description}</p>
-          <p className="info">
-            <span>available :</span>
-            {stock > 0 ? 'in stock' : 'out of stock'}
-          </p>
-        </section>
+  return (
+    <Wrapper>
+      <PageHero title={name} product />
+      <div className="section section-center page">
+        <Link to={"/products"} className="btn">
+          back to products
+        </Link>
+        <div className="product-center">
+          <ProductImages images={ images} />
+          <section className="content">
+            <h2>{name}</h2>
+            <Stars />
+            <h5>{price}</h5>
+            <p className="desc">{description}</p>
+            <p className="info">
+              <span>available :</span>
+              {stock > 0 ? "in stock" : "out of stock"}
+            </p>
+            <p className="info">
+              <span> sku:</span>
+              {sku}
+            </p>{" "}
+            <p className="info">
+              <span>brand :</span>
+              {company}
+            </p>
+            <hr />
+            {stock >0 && <AddToCart/>}
+          </section>
+        </div>
       </div>
-    </div>
-  </Wrapper>;
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.main`
