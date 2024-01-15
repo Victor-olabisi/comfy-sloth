@@ -5,7 +5,7 @@ const PageHero = ({title, product}) => {
   return (
     <Wrapper>
       p
-      <div className="section center">
+      <div className="section-center">
         <h3>
           <Link to={'/'}>home</Link>
           {product && <Link to={'/products '}>/product</Link>}
