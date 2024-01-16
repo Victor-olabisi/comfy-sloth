@@ -17,21 +17,46 @@ const Filters = () => {
       minPrice,
       shipping,
     },
-    updateFilter
+    updateFilter,
   } = useFilterContext();
-  const categories = getUniqueValues(all_products,'category')
-  const companies = getUniqueValues(all_products,'company')
-  const colors = getUniqueValues(all_products, 'colors')
+  const categories = getUniqueValues(all_products, "category");
+  const companies = getUniqueValues(all_products, "company");
+  const colors = getUniqueValues(all_products, "colors");
   console.log(colors);
-  return <Wrapper>
-    <div className="content">
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div className="form-control">
-          <input type="text" name="text" placeholder="search" className="serach-input" value={text} onChange={updateFilter} />
-        </div>
-      </form>
-    </div>
-  </Wrapper>;
+  return (
+    <Wrapper>
+      <div className="content">
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="form-control">
+            <input
+              type="text"
+              name="text"
+              placeholder="search"
+              className="search-input"
+              value={text}
+              onChange={updateFilter}
+            />
+          </div>
+          <div className="form-control">
+            <h5>category</h5>
+            {categories.map((c, index) => {
+              return (
+                <button
+                  key={index}
+                  onClick={updateFilter}
+                  name="category"
+                  type="button"
+                  className={`${category === c.toLowerCase() ? 'active': ''}`}
+                >
+                  {c}
+                </button>
+              );
+            })}
+          </div>
+        </form>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`
