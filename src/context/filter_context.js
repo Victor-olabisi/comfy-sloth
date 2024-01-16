@@ -15,7 +15,8 @@ import { useProductsContext } from './products_context'
 const initialState = {
   all_products: [],
   filter_products: [],
-  grid_view:false,
+  grid_view: false,
+  sort:'price lowest'
 }
 
 const FilterContext = React.createContext()
@@ -32,9 +33,24 @@ export const FilterProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   useEffect(() => {
     dispatch({type:LOAD_PRODUCTS,payload:products})
-  },[products])
+  }, [products])
+
+  useEffect(() => {
+    dispatch({ type: SORT_PRODUCTS });
+  }, [ products,state.sort]);
+  // change state sort when the select input change
+  function setSort(e) {
+    const name = e.target.name
+    const value = e.target.value
+    // console.log(value);
+
+
+   dispatch({type:UPDATE_SORT, payload:value})
+    
+  }
+  
   return (
-    <FilterContext.Provider value={{...state, setGridView, setListView}}>
+    <FilterContext.Provider value={{...state, setGridView, setListView, setSort}}>
       {children}
     </FilterContext.Provider>
   )
