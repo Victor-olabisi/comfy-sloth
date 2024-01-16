@@ -46,12 +46,24 @@ const Filters = () => {
                   onClick={updateFilter}
                   name="category"
                   type="button"
-                  className={`${category === c.toLowerCase() ? 'active': ''}`}
+                  className={`${category === c.toLowerCase() ? "active" : ""}`}
                 >
                   {c}
                 </button>
               );
             })}
+          </div>
+          <div className="form-control">
+            <h5>company</h5>
+            <select name="company" value={company} className="company" onChange={updateFilter}>
+              {companies.map((c, index) => {
+                return (
+                  <option value={c} key={index}>
+                    {c}
+                  </option>
+                );
+              })}
+            </select>
           </div>
         </form>
       </div>
