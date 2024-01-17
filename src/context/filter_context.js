@@ -12,6 +12,15 @@ import {
 } from '../actions'
 import { useProductsContext } from './products_context'
 
+const getItemFromLocalStorage = (name) => {
+  let item = localStorage.getItem(name) 
+  if (item) return item
+  else {
+    item = 'all'
+  }
+  
+}
+
 const initialState = {
   all_products: [],
   filter_products: [],
@@ -20,7 +29,7 @@ const initialState = {
   filter: {
     company: 'all',
     text:'',
-    category: 'all',
+    category: getItemFromLocalStorage('category'),
     minPrice: 0,
     price: 0,
     maxPrice: 0,
@@ -44,12 +53,15 @@ export const FilterProvider = ({ children }) => {
     dispatch({type:SET_LISTVIEW})
   }
   useEffect(() => {
-    dispatch({type:LOAD_PRODUCTS,payload:products})
+    dispatch({ type: LOAD_PRODUCTS, payload: products })
+    console.log(products);
   }, [products])
-
+  
   useEffect(() => {
+    dispatch({ type: FILTER_PRODUCTS,payload:products});
     dispatch({ type: SORT_PRODUCTS });
-  }, [products, state.sort]);
+  }, [products, state.sort, state.filter]);
+  
   
   // change state sort when the select input change
   function setSort(e) {
@@ -69,12 +81,21 @@ export const FilterProvider = ({ children }) => {
     if (name === 'category') {
       value= e.target.textContent
     }
+    if (name === 'color') {
+      value = e.target.dataset.color
+    }
+    if (name === 'price') {
+      value=Number(value)
+    }
+    if (name == 'shipping') {
+      value=e.target.checked
+    }
     dispatch({type:UPDATE_FILTERS,payload:{name,value}})
   }
 
   // reset all filter to default value
   function clearFilter() {
-    
+    dispatch({type:CLEAR_FILTERS})
   }
   
   return (

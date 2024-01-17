@@ -4,7 +4,8 @@ import GridView from './GridView'
 import ListView from './ListView'
 
 const ProductList = () => {
-  const { filter_products: products,grid_view} = useFilterContext();
+  const { filter_products: products, grid_view } = useFilterContext();
+  console.log(products);
   if (products < 1) {
     return <h5 >no product matches your search</h5>
   }
